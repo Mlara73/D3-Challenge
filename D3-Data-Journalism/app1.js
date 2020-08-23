@@ -23,68 +23,6 @@ const svg = d3.select("#scatter")
   const chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// Initial Params
-let chosenXaxis = "hair_length";
-let chosenYaxis = "healthcare";
-
-// functions used for updating x-scale and y-scale axis upon click on axis label
-function xScale(healthData, chosenXAxis) {
-  // create scales
-  const xLinearScale = d3.scaleLinear()
-    .domain([d3.min(healthData, d => d[chosenXAxis]) * 0.9,
-    d3.max(healthData, d => d[chosenXAxis]) * 1.1
-    ])
-    .range([0, chartWidth]);
-
-  return xLinearScale;
-
-};
-
-function yScale(healthData, chosenYAxis) {
-  // create scales
-  const xLinearScale = d3.scaleLinear()
-    .domain([d3.min(healthData, d => d[chosenYAxis]) * 0.9,
-    d3.max(healthData, d => d[chosenYAxis]) * 1.1
-    ])
-    .range([0, chartWidth]);
-
-  return yLinearScale;
-
-};
-
-// functions used for updating xAxis/yAxis var upon click on axis label
-function renderXAxes(newXScale, xAxis) {
-  const bottomAxis = d3.axisBottom(newXScale);
-
-  xAxis.transition()
-    .duration(1000)
-    .call(bottomAxis);
-
-  return xAxis;
-}
-
-// functions used for updating xAxis/yAxis var upon click on axis label
-function renderYAxes(newYScale, yAxis) {
-  const bottomAxis = d3.axisBottom(newYScale);
-
-  xAxis.transition()
-    .duration(1000)
-    .call(leftAxis);
-
-  return yAxis;
-}
-
-// function used for updating xAxis var upon click on axis label
-function renderAxes(newXScale, xAxis) {
-  const bottomAxis = d3.axisBottom(newXScale);
-
-  xAxis.transition()
-    .duration(1000)
-    .call(bottomAxis);
-
-  return xAxis;
-}
-
 // Import source data from csv file and create promise and then-catch methods
 
 d3.csv('data/data.csv').then(function(healthData){
