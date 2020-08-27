@@ -25,7 +25,7 @@ const svg = d3.select("#scatter")
 
 // Import source data from csv file and create promise and then-catch methods
 
-d3.csv('data/data.csv').then(function(healthData){
+d3.csv('assets/data/data.csv').then(function(healthData){
     console.log(healthData);
 
   // loop over "healthData" to convert data to numeric
