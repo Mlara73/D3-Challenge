@@ -192,7 +192,8 @@ function updateToolTip( circlesGroup, circlesText, chosenXAxis, chosenYAxis) {
 
 // Import source data from csv file and create promise and then-catch methods
 
-d3.csv('data/data.csv').then(function(healthData){
+d3.csv('assets/data/data.csv').then(function(healthData, err){
+    if (err) throw err;
     console.log(healthData);
 
   // loop over "healthData" to convert data to numeric
