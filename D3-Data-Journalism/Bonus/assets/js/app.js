@@ -23,11 +23,12 @@ const svg = d3.select("#scatter")
   const chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// Initial Params
+// Initialize default chart params
 let chosenXAxis = "poverty";
 let chosenYAxis = "healthcare";
 
 // functions used for updating x-scale and y-scale axis upon click on axis label
+
 function xScale(healthData, chosenXAxis) {
   // create scales
   let xLinearScale = d3.scaleLinear()
@@ -57,7 +58,7 @@ function renderXAxes(newXScale, xAxis) {
   let bottomAxis = d3.axisBottom(newXScale);
 
   xAxis.transition()
-    .duration(1000)
+    .duration(800)
     .call(bottomAxis);
 
   return xAxis;
@@ -67,7 +68,7 @@ function renderYAxes(newYScale, yAxis) {
   const leftAxis = d3.axisLeft(newYScale);
 
   yAxis.transition()
-    .duration(1000)
+    .duration(800)
     .call(leftAxis);
 
   return yAxis;
@@ -75,6 +76,7 @@ function renderYAxes(newYScale, yAxis) {
 
 // function used for updating circles group with a transition to
 // new circles
+
 // X coordinates
 function renderXCircles(circlesGroup, newXScale,chosenXAxis) {
 
@@ -97,6 +99,7 @@ function renderYCircles(circlesGroup, newYScale,chosenYAxis) {
 
 //function used for updating circles text group with a transition to
 // new text
+
 // X coordinates
 function renderXText(circlesText, newXScale, chosenXAxis) {
 
@@ -106,6 +109,7 @@ function renderXText(circlesText, newXScale, chosenXAxis) {
   return circlesText;
 };
 
+// Y coordinates
 function renderYText(circlesText, newYScale, chosenYAxis) {
 
   circlesText.transition()
@@ -115,14 +119,10 @@ function renderYText(circlesText, newYScale, chosenYAxis) {
   return circlesText;
 }
 
-// // format number to USD currency
-// let currFormatter = new Intl.NumberFormat('en-US', {
-//   style: 'currency',
-//   currency: 'USD',
-// });
-
 // function used for updating circles group with new tooltip
 function updateToolTip( circlesGroup, circlesText, chosenXAxis, chosenYAxis) {
+
+  // define a conditional to define X & Y labels, and whether it needs or not a "%" symbol
 
   let xPercentageSymbol = "";
   let xLabel;
@@ -160,6 +160,7 @@ function updateToolTip( circlesGroup, circlesText, chosenXAxis, chosenYAxis) {
     yPercentageSymbol = "%";
   }
 
+  // define tooltip, chain and html with the required tooltip info
   const toolTip = d3.tip()
     .attr("class", "d3-tip")
     .offset([50, -80])
@@ -184,9 +185,7 @@ function updateToolTip( circlesGroup, circlesText, chosenXAxis, chosenYAxis) {
   .on("mouseout", function (data, index) {
     toolTip.hide(data);
   });
-    // onmouseout event
     
-
   return circlesGroup;
 }
 
@@ -196,7 +195,7 @@ d3.csv('assets/data/data.csv').then(function(healthData, err){
     if (err) throw err;
     console.log(healthData);
 
-  // loop over "healthData" to convert data to numeric
+  // loop over "healthData" to convert data to numeric (parseInt)
   healthData.forEach(function(data){
     data.poverty = +data.poverty
     data.age = +data.age
@@ -211,12 +210,10 @@ d3.csv('assets/data/data.csv').then(function(healthData, err){
   let yLinearScale = yScale(healthData, chosenYAxis);
 
   // create xAxis and yAxis
-
   let bottomAxis = d3.axisBottom(xLinearScale);
   let leftAxis = d3.axisLeft(yLinearScale);
 
   // Append axis to a group within "chartGroup"
-
   let xAxis = chartGroup.append('g')
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(bottomAxis);
@@ -386,7 +383,7 @@ yLabelsGroup.selectAll("text")
     // replaces chosenXAxis with value
     chosenYAxis = value;
 
-    // console.log(chosenXAxis)
+    console.log(chosenXAxis)
 
     // functions here found above csv import
     // updates y scale for new data
