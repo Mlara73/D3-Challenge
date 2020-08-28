@@ -28,7 +28,7 @@ const svg = d3.select("#scatter")
 d3.csv('assets/data/data.csv').then(function(healthData){
     console.log(healthData);
 
-  // loop over "healthData" to convert data to numeric
+  // loop over "healthData" to convert data to numeric (parseInt)
   healthData.forEach(function(data){
     data.poverty = +data.poverty
     data.healthcare = +data.healthcare
@@ -53,6 +53,7 @@ d3.csv('assets/data/data.csv').then(function(healthData){
   // Append axis to a group within "chartGroup"
 
   chartGroup.append('g')
+    //transfor xAxis to the bottom
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(bottomAxis);
 
